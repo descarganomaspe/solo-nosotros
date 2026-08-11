@@ -275,7 +275,7 @@ function fin(){
   mostrar('p-final');
 }
 armarMenu();
-const HASHES=['512ab5e4-77141124', '530d02fd-788b52db', '5969e53e-7d2b4646'];const LSKEY='sn_ok';const INICIO='p-portada';
+const HASHES=["5374f3a6-78dc0cce", "55c07ecb-7a6cb9b9", "58281b8e-7c4d1298", "57f44892-7c07bb06", "5a96b5a4-7df8fdc4", "5b67d419-7e9b7265", "5cf43fe0-7fd0fa0c", "5c980aea-7f6ce59a", "5dd0dd8f-8060bfff", "5eea0f85-813b54c1", "5f1d087d-8162dba3", "74672746-90f99586", "73ec086a-907daf72", "7672edf7-92753d83", "77f78c92-938733f6", "7b38f8ab-95f41575", "7b5aada9-960e3159", "7b158c49-95bd3ebb", "7dc1da7b-97d1ff9d", "82234d5b-9ae6bdc7", "846f78dd-9cb04ea7", "921eb8da-a6afd94e", "9252d58a-a6d8527e", "92bc76cc-a72a735a", "949aacb9-a866dff9", "96dd27b1-aa286afb", "971dc973-aa5b43f1", "97614201-aa7360f5", "994955b9-abd339cf", "9f1b4123-b023738b", "9f6a5c4c-b0615eb4", "a1937a2c-b1f3840a", "a69e1aa7-b5a79c35", "a7849697-b63f9791", "a927cb12-b7862dd0", "a973ae33-b7c08d6f", "ab8867cd-b9439b51", "ad6758a1-ba9beb9b", "ae04c955-bb172a33", "ae1f079f-bb2b18cd", "512ab5e4-77141124", "530d02fd-788b52db", "5969e53e-7d2b4646"];const LSKEY='sn_ok';const INICIO='p-portada';
 function _norm(s){return s.toUpperCase().replace(/[^A-Z0-9]/g,'')}
 function _hh(s){s=_norm(s);let h1=5381,h2=52711;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);h1=(Math.imul(h1,33)+c)>>>0;h2=(Math.imul(h2,31)+c)>>>0;}return h1.toString(16)+'-'+h2.toString(16);}
 function desbloquear(){
