@@ -296,5 +296,6 @@ function desbloquear(){
 (function(){try{if(localStorage.getItem(LSKEY)==='1'){mostrar(INICIO);return;}}catch(e){};mostrar('p-lock');})();
 
 </script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
 </body>
 </html>
