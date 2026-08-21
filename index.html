@@ -162,11 +162,23 @@ label.campo{display:block;font-size:12.5px;font-weight:700;letter-spacing:1.2px;
   color:rgba(242,237,239,.38);margin:0 0 13px}
 
 /* ── carta del mazo ───────────────────────────────────────────── */
-.carta{background:linear-gradient(165deg,#221022 0%,#140C13 70%);
-  border:1px solid rgba(232,76,138,.22);border-radius:26px;
-  padding:30px 24px;min-height:270px;display:flex;align-items:center;
-  justify-content:center;text-align:center;box-shadow:0 16px 42px rgba(0,0,0,.5)}
-.carta p{font-size:23px;font-weight:720;letter-spacing:-.5px;line-height:1.3}
+/* la carta: como la del impreso — mucho aire, la frase grande y centrada */
+.carta{position:relative;background:linear-gradient(168deg,#241226 0%,#130B12 72%);
+  border:1px solid rgba(232,76,138,.24);border-radius:28px;
+  padding:44px 26px;min-height:320px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  box-shadow:0 20px 52px rgba(0,0,0,.58), inset 0 1px 0 rgba(255,255,255,.07)}
+.carta::before{content:'\\201C';position:absolute;top:14px;left:0;right:0;
+  font-size:44px;line-height:1;color:rgba(232,76,138,.32);font-family:Georgia,serif}
+.carta p{font-size:24px;font-weight:700;letter-spacing:-.4px;line-height:1.34;max-width:19em}
+.carta .tipo{display:block;font-size:11px;font-weight:800;letter-spacing:2.4px;
+  text-transform:uppercase;color:#E84C8A;margin-bottom:14px}
+/* título grande, del estilo del original */
+.tit-gr{font-size:27px;font-weight:800;letter-spacing:-.7px;line-height:1.16;margin:0}
+.mas18{font-size:10.5px;font-weight:800;letter-spacing:.8px;color:#F0857D;
+  background:rgba(224,87,79,.16);border-radius:99px;padding:3px 8px;margin-left:8px;vertical-align:middle}
+.mazo.chico{padding:15px 17px}
+.mazo.chico b{font-size:16px}
 .cont{text-align:center;font-size:13px;color:rgba(242,237,239,.42);margin-top:14px}
 </style>
 </head>
@@ -178,7 +190,8 @@ label.campo{display:block;font-size:12.5px;font-weight:700;letter-spacing:1.2px;
 'use strict';
 
 var PREGUNTAS = [{"n":1,"pregunta":"¿Qué desayuno te haría feliz un martes cualquiera?","tema":"cotidiano"},{"n":2,"pregunta":"¿Cómo te gusta que te despierten?","tema":"cotidiano"},{"n":3,"pregunta":"¿Qué canción escuchas cuando estás solo?","tema":"cotidiano"},{"n":4,"pregunta":"¿Qué comida te devuelve a tu infancia?","tema":"cotidiano"},{"n":5,"pregunta":"¿Qué cosa chiquita te alegra el día?","tema":"cotidiano"},{"n":6,"pregunta":"¿Cómo sería tu domingo perfecto?","tema":"cotidiano"},{"n":7,"pregunta":"¿Qué es lo primero que haces al llegar a casa?","tema":"cotidiano"},{"n":8,"pregunta":"¿Qué olor te trae un recuerdo bonito?","tema":"cotidiano"},{"n":9,"pregunta":"¿Qué te da flojera hacer siempre?","tema":"cotidiano"},{"n":10,"pregunta":"¿A qué hora del día te sientes más tú?","tema":"cotidiano"},{"n":11,"pregunta":"¿Qué manía tuya te da risa?","tema":"cotidiano"},{"n":12,"pregunta":"¿Qué te pone de buen humor en cinco minutos?","tema":"cotidiano"},{"n":13,"pregunta":"¿Qué película volverías a ver mil veces?","tema":"cotidiano"},{"n":14,"pregunta":"¿Qué lugar de la ciudad te calma?","tema":"cotidiano"},{"n":15,"pregunta":"¿Qué te compras cuando te quieres consentir?","tema":"cotidiano"},{"n":16,"pregunta":"¿Cómo te gusta pasar un día de lluvia?","tema":"cotidiano"},{"n":17,"pregunta":"¿Qué haces cuando nadie te ve?","tema":"cotidiano"},{"n":18,"pregunta":"¿Qué te hace reír hasta que te duele la barriga?","tema":"cotidiano"},{"n":19,"pregunta":"¿Cuál es tu plan favorito conmigo un viernes?","tema":"cotidiano"},{"n":20,"pregunta":"¿Qué te gusta hacer en silencio a mi lado?","tema":"cotidiano"},{"n":21,"pregunta":"¿Cómo te gusta que te abrace cuando llegas cansado?","tema":"cotidiano"},{"n":22,"pregunta":"¿Qué comida tuya quieres que aprenda a hacer?","tema":"cotidiano"},{"n":23,"pregunta":"¿Qué costumbre mía te gusta más de lo que crees?","tema":"cotidiano"},{"n":24,"pregunta":"¿Qué harías conmigo un día entero sin celular?","tema":"cotidiano"},{"n":25,"pregunta":"¿Qué pensaste la primera vez que me viste?","tema":"historia"},{"n":26,"pregunta":"¿Qué fue lo primero que te gustó de mí?","tema":"historia"},{"n":27,"pregunta":"¿Qué recuerdas de nuestra primera conversación larga?","tema":"historia"},{"n":28,"pregunta":"¿En qué momento supiste que esto iba en serio?","tema":"historia"},{"n":29,"pregunta":"¿Qué momento nuestro repetirías tal cual?","tema":"historia"},{"n":30,"pregunta":"¿Cuál es tu foto favorita de nosotros?","tema":"historia"},{"n":31,"pregunta":"¿Qué día juntos te dio más risa?","tema":"historia"},{"n":32,"pregunta":"¿Qué detalle mío le contaste primero a tu gente?","tema":"historia"},{"n":33,"pregunta":"¿Qué canción se nos parece?","tema":"historia"},{"n":34,"pregunta":"¿Qué viaje nuestro volverías a hacer mañana?","tema":"historia"},{"n":35,"pregunta":"¿Qué apodo mío te gusta más?","tema":"historia"},{"n":36,"pregunta":"¿Qué cosa nuestra te gustaría que nunca cambie?","tema":"historia"},{"n":37,"pregunta":"¿Qué te sigue sorprendiendo de mí?","tema":"admira"},{"n":38,"pregunta":"¿En qué crees que soy bueno y yo no me doy cuenta?","tema":"admira"},{"n":39,"pregunta":"¿Qué es lo que más te inspira de mí?","tema":"admira"},{"n":40,"pregunta":"¿Cuándo te sentiste orgulloso de mí y no me lo dijiste?","tema":"admira"},{"n":41,"pregunta":"¿Qué aprendiste de mí sin que yo te enseñara?","tema":"admira"},{"n":42,"pregunta":"¿Qué me has visto hacer que tú no te animarías?","tema":"admira"},{"n":43,"pregunta":"¿Cuándo fue la última vez que te sentiste orgulloso de ti?","tema":"admira"},{"n":44,"pregunta":"¿Qué logro tuyo nadie celebró como debía?","tema":"admira"},{"n":45,"pregunta":"¿De qué parte de tu vida te sientes tranquilo hoy?","tema":"siente"},{"n":46,"pregunta":"¿Qué gesto mío te hace sentir querido?","tema":"siente"},{"n":47,"pregunta":"¿Qué te hace sentir seguro conmigo?","tema":"siente"},{"n":48,"pregunta":"¿Qué necesitas escuchar en un día difícil?","tema":"siente"},{"n":49,"pregunta":"¿Cómo te gusta que te traten cuando estás mal?","tema":"siente"},{"n":50,"pregunta":"¿Qué te calma cuando estás nervioso?","tema":"siente"},{"n":51,"pregunta":"¿Qué haces cuando te sientes solo?","tema":"siente"},{"n":52,"pregunta":"¿Qué te consuela de verdad?","tema":"siente"},{"n":53,"pregunta":"¿Cuándo fue la última vez que lloraste?","tema":"siente"},{"n":54,"pregunta":"¿Qué te da miedo perder?","tema":"siente"},{"n":55,"pregunta":"¿Cuál es tu mayor miedo?","tema":"siente"},{"n":56,"pregunta":"¿Qué te quita el sueño últimamente?","tema":"siente"},{"n":57,"pregunta":"¿Qué te hace sentir chiquito?","tema":"siente"},{"n":58,"pregunta":"¿Qué te da vergüenza que yo vea?","tema":"cuesta"},{"n":59,"pregunta":"¿Qué haces cuando estás molesto y no lo dices?","tema":"cuesta"},{"n":60,"pregunta":"¿Qué te callas por no pelear?","tema":"cuesta"},{"n":61,"pregunta":"¿Cómo se demostraba el cariño en tu casa?","tema":"historia"},{"n":62,"pregunta":"¿Qué te hacía sentir cuidado cuando eras chico?","tema":"historia"},{"n":63,"pregunta":"¿Qué aprendiste de tus papás que quieres repetir conmigo?","tema":"historia"},{"n":64,"pregunta":"¿Qué te dijeron de chico que todavía te pesa?","tema":"cuesta"},{"n":65,"pregunta":"¿Qué te faltó cuando eras niño?","tema":"cuesta"},{"n":66,"pregunta":"¿Qué no quieres repetir de la casa donde creciste?","tema":"cuesta"},{"n":67,"pregunta":"¿A quién de tu familia te pareces más de lo que te gustaría?","tema":"cuesta"},{"n":68,"pregunta":"¿Qué le dirías hoy al niño que fuiste?","tema":"siente"},{"n":69,"pregunta":"¿Qué parte de ti te costó aceptar?","tema":"cuesta"},{"n":70,"pregunta":"¿Qué sueño tuyo sigue guardado?","tema":"siente"},{"n":71,"pregunta":"¿Qué harías si nadie te juzgara?","tema":"siente"},{"n":72,"pregunta":"¿Qué te gustaría intentar y te da miedo fallar?","tema":"siente"},{"n":73,"pregunta":"¿Qué te gustaría que yo entienda sin que me lo expliques?","tema":"cuesta"},{"n":74,"pregunta":"¿Qué necesitas de mí y no sabes cómo pedirlo?","tema":"cuesta"},{"n":75,"pregunta":"¿Cuándo sientes que no te escucho?","tema":"cuesta"},{"n":76,"pregunta":"¿Qué te dolió y no me lo dijiste?","tema":"cuesta"},{"n":77,"pregunta":"¿En qué momento te sentiste solo estando conmigo?","tema":"cuesta"},{"n":78,"pregunta":"¿Qué cosa mía te cuesta aceptar?","tema":"cuesta"},{"n":79,"pregunta":"¿Qué te gustaría que te pregunte más seguido?","tema":"cuesta"},{"n":80,"pregunta":"¿Qué me ocultas por cuidarme?","tema":"cuesta"},{"n":81,"pregunta":"¿Qué te da miedo de nosotros?","tema":"cuesta"},{"n":82,"pregunta":"¿Qué crees que me molesta de ti?","tema":"cuesta"},{"n":83,"pregunta":"¿Qué me perdonaste sin decírmelo?","tema":"cuesta"},{"n":84,"pregunta":"¿Por qué te gustaría pedirme perdón hoy?","tema":"cuesta"},{"n":85,"pregunta":"¿Qué pelea nuestra te quedó atragantada?","tema":"cuesta"},{"n":86,"pregunta":"¿Qué necesitas cuando peleamos y yo no te doy?","tema":"cuesta"},{"n":87,"pregunta":"¿Cómo te gustaría que te busque después de una discusión?","tema":"cuesta"},{"n":88,"pregunta":"¿Qué te haría sentir elegido otra vez?","tema":"siente"},{"n":89,"pregunta":"¿Qué extrañas de cómo éramos antes?","tema":"historia"},{"n":90,"pregunta":"¿Qué de nosotros hoy es mejor que antes?","tema":"historia"},{"n":91,"pregunta":"¿Qué parte de mí crees que nadie más conoce?","tema":"admira"},{"n":92,"pregunta":"¿Qué te gustaría que la gente supiera de mí?","tema":"admira"},{"n":93,"pregunta":"¿Qué te hace admirarme en los días malos?","tema":"admira"},{"n":94,"pregunta":"¿Qué crees que aguanto en silencio?","tema":"cuesta"},{"n":95,"pregunta":"¿Qué carga mía te gustaría llevar por mí?","tema":"siente"},{"n":96,"pregunta":"¿Cuándo te sentiste más acompañado por mí?","tema":"siente"},{"n":97,"pregunta":"¿Qué te haría sentir seguro para contarme cualquier cosa?","tema":"cuesta"},{"n":98,"pregunta":"¿Qué te avergüenza de tu pasado?","tema":"cuesta"},{"n":99,"pregunta":"¿Qué error tuyo todavía te persigue?","tema":"cuesta"},{"n":100,"pregunta":"¿Qué te cuesta perdonarte?","tema":"cuesta"},{"n":101,"pregunta":"¿A quién le debes una conversación pendiente?","tema":"cuesta"},{"n":102,"pregunta":"¿Qué le dirías a alguien que ya no está?","tema":"siente"},{"n":103,"pregunta":"¿Qué duelo tuyo no terminaste de vivir?","tema":"siente"},{"n":104,"pregunta":"¿Qué te da miedo que yo descubra de ti?","tema":"cuesta"},{"n":105,"pregunta":"¿En qué te sientes menos que los demás?","tema":"cuesta"},{"n":106,"pregunta":"¿Qué crees que mereces y todavía no te has dado?","tema":"siente"},{"n":107,"pregunta":"¿Qué te haría falta para sentirte en paz este año?","tema":"siente"},{"n":108,"pregunta":"¿Cómo te imaginas nuestra casa en diez años?","tema":"historia"},{"n":109,"pregunta":"¿Qué quieres que hagamos juntos antes de ponernos viejos?","tema":"historia"},{"n":110,"pregunta":"¿Qué quieres que yo recuerde de ti siempre?","tema":"historia"},{"n":111,"pregunta":"¿Qué le contarías de mí a un hijo nuestro?","tema":"historia"},{"n":112,"pregunta":"¿Qué costumbre nuestra te gustaría dejarle a alguien?","tema":"historia"},{"n":113,"pregunta":"¿Qué harías si supieras que nos queda un año juntos?","tema":"siente"},{"n":114,"pregunta":"¿Qué te gustaría que te diga más seguido?","tema":"cuesta"},{"n":115,"pregunta":"¿Qué crees que yo necesito de ti y no te pido?","tema":"cuesta"},{"n":116,"pregunta":"¿Qué parte de ti me diste que no le habías dado a nadie?","tema":"siente"},{"n":117,"pregunta":"¿Qué te cambió de estar conmigo?","tema":"admira"},{"n":118,"pregunta":"¿Qué versión tuya te gusta más cuando estás conmigo?","tema":"admira"},{"n":119,"pregunta":"¿Qué te haría elegirme otra vez mañana?","tema":"siente"},{"n":120,"pregunta":"¿Qué quieres que sepa hoy, por si mañana no alcanza el tiempo?","tema":"siente"}];
-var MAZOS     = [{"id":"conexion","nombre":"Conexión","emoji":"🌙","bajada":"Para hablar de ustedes sin que se ponga raro.","gratis":40,"cartas":["Cuéntame algo tuyo que nunca me hayas contado.","¿Qué te gustó de mí esta semana?","Dime tres cosas que te hicieron bien hoy.","¿Qué canción te acuerda a nosotros? Ponla ahora.","Descríbeme cómo me ves cuando me despierto.","¿Qué es lo más valiente que me has visto hacer?","Cuéntame de un amigo que te marcó.","¿Qué te gustaría que hagamos este fin de semana?","Dime algo que te dé miedo y que nunca has dicho en voz alta.","¿Qué comida te gustaría que cocinemos juntos?","Cuéntame el mejor consejo que te dieron.","¿Qué te hace sentir en casa?","Descríbeme tu día ideal sin trabajo ni pendientes.","¿Qué de ti crees que ha cambiado desde que estamos juntos?","Dime un momento en que te sentiste muy querido por mí.","¿Qué manía mía te da risa?","Cuéntame un recuerdo de tu colegio.","¿Qué te gustaría aprender conmigo?","Dime algo que agradeces hoy.","¿Qué lugar quieres conocer conmigo antes de los 50?","Cuéntame cómo eras a los 15.","¿Qué te ilusiona de este año?","Dime qué te gusta de tu propio carácter.","¿Qué crees que somos buenos haciendo juntos?","Cuéntame algo que hiciste hoy y nadie notó.","¿Qué te tranquiliza de mí?","Dime una promesa chiquita que quieras cumplirme.","¿Qué te gustaría que celebremos más seguido?","Cuéntame de la primera vez que te sentiste adulto.","¿Qué parte de tu rutina te gusta más?","Dime tres palabras que me describan hoy.","¿Qué extrañarías de mí si me fuera un mes de viaje?","Cuéntame un sueño raro que hayas tenido.","¿Qué te gustaría que te agradezca más?","Dime cómo te gusta que te consuelen.","¿Qué cosa nuestra le contarías a un desconocido con orgullo?","Cuéntame qué te hace sentir libre.","¿Qué me pedirías si supieras que digo que sí?","Dime algo bonito que pensaste de mí y no dijiste.","¿Qué te gustaría que hagamos cada domingo?"],"como":"Túrnense. Uno lee la carta en voz alta, los dos responden, y recién ahí pasan a la otra. Sin apuro: una buena carta puede durar toda la cena."},{"id":"sinfiltro","nombre":"Sin Filtro","emoji":"🔥","bajada":"Para lo que cuesta decir. Se dice mirando a los ojos.","gratis":6,"cartas":["Dime algo que te molesta de mí y que nunca te animaste a decir.","¿Qué necesitas de mí y no sabes cómo pedirlo?","Cuéntame la vez que más solo te sentiste conmigo.","¿Qué te dolió de lo último que peleamos?","Dime algo que te da vergüenza de ti.","¿Qué me estás perdonando ahora mismo en silencio?","Cuéntame de qué tienes celos y no lo admites.","¿Qué crees que estoy dejando de darte?","Dime en qué sientes que te fallé.","¿Qué te da miedo que se acabe entre nosotros?","Cuéntame una mentira chiquita que me dijiste.","¿Qué parte de mi vida te gustaría conocer más y no te dejo?","Dime qué haces cuando estás molesto y no lo dices.","¿Qué te hace dudar de mí?","Cuéntame qué te pesa de tu familia hoy.","¿Qué te gustaría cambiar de nuestra rutina y no lo dices por no incomodar?","Dime algo mío que te gustaría que dejara de hacer.","¿Qué te da vergüenza necesitar?","Cuéntame de una decisión tuya de la que te arrepientes.","¿Qué crees que pienso de ti cuando me quedo callado?","Dime cuándo sentiste que te elegí después de otra cosa.","¿Qué te guardas para no preocuparme?","Cuéntame qué te frustra de tu propia vida hoy.","¿Qué parte de ti crees que ya no me muestras?","Dime qué te haría sentir seguro conmigo otra vez.","¿Qué me reclamarías si supieras que no me voy a molestar?","Cuéntame de la última vez que lloraste sin decirme.","¿Qué crees que aguanto por ti?","Dime algo que te gustaría pedirme perdón.","¿Qué te da miedo de cómo somos cuando peleamos?","Cuéntame qué te hizo daño de alguien antes de mí.","¿Qué esperas de mí y todavía no te lo doy?","Dime qué te cuesta perdonarte a ti mismo.","¿Qué crees que yo no soporto de ti?","Cuéntame qué sientes cuando te hago falta y no estoy.","¿Qué te gustaría que te prometa y no te has atrevido a pedir?"],"como":"Esta sube el tono. Léanla solo si los dos están de ánimo, sin celular de por medio. Lo que se dice acá se queda entre ustedes."}];
+var EDICIONES = [{"id":"conexion","nombre":"Conexión","emoji":"🤍","adulto":false,"bajada":"Para hablar de verdad, sin apuro.","como":"Se turnan. El que saca, lee en voz alta y responde primero.","mazos":[{"nombre":"SER VISTO","cartas":["¿En qué momento te has sentido más comprendido/a por mí?","¿Qué parte de ti sientes que solo yo conozco?","¿Hay algo tuyo que crees que todavía no logro ver del todo?","¿Qué crees que yo veo en ti que tú no ves en ti mismo/a?","¿En qué te sientes más tú mismo/a cuando estás conmigo?","¿Hay una versión tuya que escondes incluso de mí?","¿Qué necesitas que yo entienda de ti y nunca te he preguntado?","¿Cuándo fue la última vez que te sentiste realmente escuchado/a por mí?","¿Cuándo sientes que te trato como te merecías que te trataran siempre?","¿Qué gesto mío te hace sentir que estás a salvo?","¿Qué te gustaría que yo notara sin que tengas que decírmelo?","¿En qué momento reciente te sentiste orgulloso/a de quién eres, y yo no me enteré?","¿Qué parte de tu día se vuelve mejor solo por contármela?","¿Qué cosa tuya crees que malinterpreto seguido?","¿Cuándo te has sentido pequeño/a delante de mí, aunque yo no quisiera?","¿Qué necesitas que celebre de ti más seguido?","¿Hay un sueño que abandonaste y que te gustaría que yo recordara por ti?","¿Qué verdad tuya te cuesta más mostrar: la que te enorgullece o la que te avergüenza?"]},{"nombre":"LO QUE NO DIGO","cartas":["¿Hay algo que llevas tiempo queriendo decirme y no has hallado el momento?","¿Qué es algo que me perdonaste sin que yo lo supiera?","¿Cuándo te has sentido solo/a, incluso estando conmigo?","¿Qué te da miedo perder de lo nuestro?","¿Hay algo mío que te duele y preferiste callar?","¿Qué necesitas más de mí que te ha costado pedir?","¿De qué tienes miedo que yo me canse algún día?","¿Qué te hace sentir inseguro/a en esta relación, aunque sea algo pequeño?","¿Qué me callas para no preocuparme?","¿Hay algo que te hace falta y crees que ya no tiene sentido pedir?","¿Cuándo fue la última vez que quisiste llorar delante de mí y no lo hiciste?","¿Qué te hiere que yo haga sin darme cuenta?","¿Hay un \"te necesito\" que no me has dicho por orgullo?","¿Qué parte de ti sientes que fue cambiando por estar conmigo, y no sabes si para bien?","¿Qué te da miedo que yo descubra de ti?","¿Cuándo sentiste que te elegí… y cuándo sentiste lo contrario?","¿Qué necesitas escuchar hoy, aunque ya lo sepas?","Si pudieras decirme algo sin consecuencias, ¿qué sería?"]},{"nombre":"CÓMO AMAMOS","cartas":["Más allá de que te lo diga, ¿cómo sabes que te amo?","¿Qué gesto pequeño mío te llega más que un regalo grande?","¿Cuándo te sientes más amado/a: cuando te escucho, te abrazo, te ayudo o paso tiempo contigo?","¿Qué forma de cariño te gustaría que yo aprendiera a darte mejor?","¿Qué hago por costumbre que en realidad te llega profundo?","En tus días malos, ¿qué necesitas de mí que no siempre te doy?","¿Cómo te gustaría que te cuide cuando estás mal, sin que tengas que pedírmelo?","¿Qué te hace sentir elegido/a por mí, otra vez, cada día?","¿Qué te hace sentir prioridad para mí (y qué te hace sentir lo contrario)?","¿Cómo te diste cuenta de que este amor era distinto a los anteriores?","¿Qué te gustaría que yo dejara de dar por sentado?","¿Cuál es la forma más simple en que puedo alegrarte un día pesado?","¿Qué te reconforta de mí cuando el mundo afuera está difícil?","¿En qué te gustaría que me apoye más, sin que se sienta como control?","¿Qué necesitas de mí para sentirte libre y elegido/a a la vez?","¿Qué amor viste de niño/a que te marcó, y cuánto de eso buscas en nosotros?","¿Cómo te gustaría que te pida perdón para que de verdad te llegue?","¿Qué te hace sentir que puedes bajar la guardia conmigo?"]},{"nombre":"NOSOTROS DE VERDAD","cartas":["¿Qué crees que nos mantiene juntos cuando todo se pone difícil?","¿En qué hemos cambiado los dos, para bien, desde que estamos juntos?","¿Qué hacemos bien como pareja que no nos decimos lo suficiente?","Si lo nuestro fuera una casa, ¿qué habitación nos falta construir?","¿Qué costumbre nuestra te gustaría que nunca perdamos?","¿Qué parte de \"nosotros\" sientes que hay que cuidar más en esta etapa?","¿Qué te gustaría que fuera distinto entre los dos, sin miedo a decirlo?","¿Qué costumbre nuestra crees que otros no entenderían, pero a nosotros nos define?","¿En qué somos un buen equipo, y en qué todavía nos falta coordinar?","¿Qué conversación venimos evitando y quizá deberíamos tener?","¿Qué te gustaría que protejamos de la rutina antes de que se apague?","¿Cuál es tu forma favorita de reconciliarte conmigo?","Si tuviéramos que reinventarnos como pareja, ¿por dónde empezarías?","¿Qué le dirías a la versión nuestra de hace un año?","¿Qué parte de nuestra vida diaria te da paz?","¿Qué te gustaría que hagamos juntos que dé un poco de miedo?","¿Qué crees que yo cargo solo/a y podríamos cargar entre los dos?"]},{"nombre":"HERIDAS Y PERDÓN","cartas":["¿Hay algo de nuestro pasado que todavía te pesa?","¿Qué necesitas oír de mí para cerrar una herida vieja?","¿Hay algo por lo que sientas que aún no te he pedido perdón?","¿Qué aprendiste de la peor época que pasamos juntos?","La próxima vez que discutamos, ¿cómo te gustaría que lo hagamos distinto?","¿Qué error mío te costó más perdonar, y cómo lo lograste?","¿Hay algo que finges tener superado y en realidad no?","¿Qué necesitas de mí para volver a confiar cuando algo se rompe?","¿Qué aprendiste de una discusión nuestra que te cambió por dentro?","¿Qué te gustaría que nunca más nos hagamos?"]},{"nombre":"SUEÑOS Y MIEDOS","cartas":["¿Qué sueño tuyo te gustaría que yo también hiciera mío?","¿Cómo nos imaginas dentro de diez años, en un día cualquiera?","¿Qué miedo sobre el futuro no me has contado?","¿Qué te gustaría que construyéramos juntos y aún no empezamos?","¿Qué versión de ti quieres llegar a ser, y cómo puedo ayudarte a llegar?","¿Qué necesitas de mí para sentirte seguro/a de dar el siguiente paso, sea cual sea?","¿Qué vida imaginabas antes de mí, y qué de eso todavía quieres?","¿Qué te daría miedo intentar aunque yo esté a tu lado?","¿Qué quieres que digamos de nosotros cuando seamos viejos?","¿Qué decisión grande te gustaría tomar conmigo este año?","¿Qué parte del futuro te ilusiona y cuál te asusta, en partes iguales?","¿Qué necesitas dejar atrás para avanzar más liviano/a a mi lado?"]},{"nombre":"AQUÍ Y AHORA","cartas":["Sin pensarlo mucho: ¿qué me agradeces hoy?","¿Qué momento de esta semana te hubiera gustado vivir conmigo?","¿Qué necesitas de mí ahora mismo, en este instante?","Si pudieras congelar un instante nuestro para siempre, ¿cuál sería y por qué ese?","¿Qué hacíamos antes que dejamos de hacer y extrañas?","¿Qué te haría sentir, al terminar esta noche, que valió la pena?"]},{"nombre":"RETOS DE CONEXIÓN","cartas":["dile una cosa que admiras de cómo enfrenta la vida.","cuéntale un miedo que nunca le hayas dicho.","tómense de las manos y cada uno diga \"gracias por…\" tres veces.","pídele algo que necesitas, sin justificarte ni disculparte.","dile qué momento de hoy fue mejor solo porque pensaste en él/ella.","dile en qué momento de hoy la extrañaste/lo extrañaste.","confiésale una inseguridad que él/ella pueda ayudarte a cargar.","describe a tu pareja como si se lo contaras a alguien que la ama tanto como tú.","pídanse perdón por algo pequeño y pendiente.","cierren los ojos y digan a la vez qué necesitan esta semana del otro.","dile una promesa pequeña y realista, y cúmplela esta semana.","dile tres cosas que hace mejor que nadie que conoces.","cuéntale un sueño tuyo que dependa de que sigan juntos.","describe cómo te sentiste la primera vez que te sentiste amado/a por él/ella.","mírense y digan a la vez lo que más agradecen del otro.","háganse una promesa para dentro de un año y anótenla.","dile una necesidad concreta y pídele ayuda para cumplirla.","cuéntale algo de tu día que no le habías contado.","dense las gracias mirándose, sin sonreír, hasta que uno no aguante.","elijan juntos una cosa para mejorar como pareja este mes.","dile qué momento de la relación te gustaría volver a vivir tal cual.","dile lo que más te gustó de este rato juntos.","abrácense en silencio hasta que la respiración de los dos se acompase.","hagan un plan concreto para su próxima \"noche de nosotros\".","cada uno diga una cosa que hará mañana por el otro.","terminen con un \"te elijo\" y digan por qué, hoy.","dile la verdad más bonita que le has callado.","hagan una lista de tres sueños para cumplir juntos este año.","dense un beso lento y cuéntenle al otro qué sintieron.","escríbanse una frase que puedan leer en un mal día."],"tipos":["Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto"]},{"nombre":"COMPLICIDAD Y RISA","cartas":["¿Cuál es nuestro chiste interno favorito y cómo nació?","¿Qué locura harías conmigo si nadie nos juzgara?","¿Qué me sale terrible y aun así te encanta que lo intente?","¿Cuál fue la vez que más te reíste conmigo, hasta doler?","¿Qué apodo secreto me pondrías (o ya me pusiste)?","Si hiciéramos algo prohibido y divertido esta semana, ¿qué sería?"]},{"nombre":"EL AFECTO Y LO COTIDIANO","cartas":["¿Qué gesto físico tuyo (no sexual) te hace sentir en casa: mi mano, mi abrazo, mi hombro?","¿Qué momento común del día extrañarías si dejara de pasar?","¿Cómo te gustaría que te despierte o te reciba al llegar?","¿Qué silencio nuestro te gusta más?","¿Qué te reconcilia con el mundo cuando estás a mi lado sin hacer nada?","¿Qué pequeña tradición nos gustaría inventar desde hoy?"]},{"nombre":"CUANDO ESTAMOS LEJOS","cartas":["¿Qué es lo que más extrañas de mí cuando no estoy?","¿Qué te hace sentir cerca aunque estemos lejos?","¿Qué te gustaría que te mande cuando no podemos vernos?","¿Qué hora del día se te hace más difícil sin mí?","¿Qué es lo primero que quieres hacer cuando volvamos a estar juntos?"]},{"nombre":"NUESTRA HISTORIA","cartas":["¿Cuál fue el momento en que decidiste quedarte, aunque pudiste irte?","¿Qué día sentiste que pasamos de \"esto es bonito\" a \"esto es serio\"?","¿Qué te hizo confiar en mí por primera vez de verdad?","¿Cuándo fue la vez que más cerca estuvimos de rompernos, y qué nos salvó?","¿Qué versión mía extrañas del pasado y cuál prefieres de ahora?","¿Qué aprendiste de ti mismo/a estando conmigo que no sabías?","¿Qué cambió en tu idea del amor desde que empezamos?","Si nuestra historia fuera un libro, ¿qué título le pondrías a este capítulo?"]},{"nombre":"LOS PEQUEÑOS DETALLES","cartas":["¿Qué hago cuando estoy nervioso/a que ya aprendiste a reconocer?","¿Cómo te das cuenta de que tuve un mal día antes de que lo diga?","¿Qué manía mía te molestaba al principio y ahora te da ternura?","¿Qué gesto mínimo mío te derrite cada vez?","¿Qué detalle tuyo crees que solo yo cuido?","¿Qué cosa hago sin darme cuenta que dice mucho de cuánto te quiero?","¿En qué se nota, para ti, que envejecemos juntos con cariño?"]},{"nombre":"CUANDO EL MUNDO APRIETA","cartas":["¿Cómo te gustaría que te sostenga cuando todo te sale mal?","¿Qué te calma de mí en medio de una crisis?","¿Qué carga tuya te gustaría poder soltar en mí sin sentir culpa?","¿Cuándo sentiste que fui tu refugio, y cuándo te faltó?","¿Qué necesitas de mí cuando estás al límite: acción, silencio o abrazo?","¿Qué miedo tuyo se hace más chico cuando estoy cerca?"]},{"nombre":"FAMILIA Y RAÍCES","cartas":["¿Qué de cómo te criaron quieres repetir con nosotros, y qué no?","¿Qué herida de tu familia te gustaría no arrastrar a lo nuestro?","¿A quién de tu familia te gustaría que yo entendiera mejor?","¿Qué costumbre de tu casa de niño/a te gustaría que hagamos nuestra?","¿Qué te enseñó tu familia sobre el amor que hoy revisas?","¿Qué te gustaría que digan de nosotros los que nos conocen?"]},{"nombre":"CRECER JUNTOS","cartas":["¿En qué quieres convertirte, y cómo puedo ayudarte sin empujarte?","¿Qué sueño tuyo pusiste en pausa por miedo o por tiempo?","¿En qué crees que yo te hago mejor persona?","¿En qué te gustaría que yo creciera por nosotros?","¿Qué te gustaría aprender o intentar juntos este año?","¿Qué logro tuyo te gustaría que celebre más de lo que lo hago?"]},{"nombre":"CONFIANZA Y SEGURIDAD","cartas":["¿Qué te hace sentir totalmente seguro/a de mí?","¿Qué necesitas para no dudar cuando estamos lejos?","¿Qué gesto mío reconstruye tu confianza cuando algo la sacude?","¿Hay algo que necesites saber de mí para estar en paz?","¿Qué acuerdo nuestro te da tranquilidad, y cuál te gustaría revisar?","¿Cómo te gustaría que actúe cuando alguien intenta meterse entre nosotros?"]},{"nombre":"SENTIDO Y VALORES","cartas":["¿Qué le da sentido a tu vida hoy, además de mí?","¿En qué crees, aunque cueste explicarlo?","¿Qué valor tuyo no negociarías jamás, ni por amor?","¿Qué te gustaría que dejáramos como huella en el mundo, juntos?","¿Qué te da paz cuando piensas en la vida y en la muerte?","¿Qué crees que la vida quiso enseñarte al ponerte a mi lado?"]},{"nombre":"HIPOTÉTICAS QUE REVELAN","cartas":["Si solo pudieras conservar tres recuerdos nuestros, ¿cuáles salvarías?","Si yo perdiera la memoria, ¿qué de nosotros me contarías primero?","Si tuvieras un día entero sin obligaciones y solo conmigo, ¿cómo sería?","Si pudieras mandarte un mensaje al día que nos conocimos, ¿qué te dirías?","Si nuestra relación necesitara una sola cosa para durar toda la vida, ¿cuál sería?","Si pudieras sentir por un minuto lo que yo siento por ti, ¿qué crees que descubrirías?"]},{"nombre":"GRATITUD ESPECÍFICA","cartas":["¿Qué de mí agradeces hoy que hace un año no valorabas igual?","¿Qué renuncia mía por ti crees que no siempre reconoces?","¿Qué momento reciente te hizo pensar \"qué suerte tenerlo/a\"?","¿Por qué de mí no me has dado las gracias y deberías?","¿Qué parte de tu vida es mejor por mí, y no me lo has dicho?"]},{"nombre":"MEJORES AMIGOS","cartas":["¿En qué soy tu cómplice más que tu pareja?","¿Qué me contarías a mí antes que a nadie, sea bueno o malo?","¿Qué plan tonto y feliz harías solo conmigo?","¿De qué te ríes conmigo que con nadie más?","¿Qué te gusta hacer a mi lado sin necesidad de hablar?","¿Qué aventura pendiente te gustaría tachar juntos de la lista?","¿Qué te hace sentir que somos un equipo contra el mundo?"]},{"nombre":"EL CUERPO Y EL CUIDADO","cartas":["¿Qué contacto físico mío te reconforta más: la mano, el abrazo, la cabeza en tu hombro?","¿Cómo te gustaría que te cuide cuando estés enfermo/a?","¿Qué le tienes miedo a que le pase a tu cuerpo con los años, y cómo quieres que te acompañe?","¿Qué hábito sano te gustaría que empecemos juntos?","¿Qué parte de ti te cuesta querer, y cómo puedo ayudarte a mirarla distinto?","¿Qué gesto de cuidado mío te hace sentir amado/a sin palabras?"]},{"nombre":"DINERO, CASA Y PROYECTOS","cartas":["¿Qué aprendiste sobre el dinero de niño/a que hoy influye en nosotros?","¿Qué proyecto juntos te ilusiona más: viaje, casa, negocio, familia?","¿Qué te da seguridad y qué te da miedo cuando pensamos en el futuro económico?","¿Cómo te gustaría que tomemos las decisiones grandes de plata?","¿Qué lujo pequeño te gustaría darnos sin culpa?","Si tuviéramos que empezar de cero mañana, ¿confiarías en que salimos adelante juntos? ¿Por qué?"]},{"nombre":"RUTINA Y MAGIA","cartas":["¿Qué parte de nuestra rutina te gustaría convertir en un pequeño ritual?","¿Qué hacíamos al principio que deberíamos rescatar esta semana?","¿Qué día común contigo se te quedó grabado como especial?","¿Qué te haría sentir conquistado/a otra vez, aunque ya llevemos años?","¿Qué sorpresa pequeña te alegraría un martes cualquiera?","¿Qué momento del día es \"nuestro\" y no quieres perder?"]},{"nombre":"PERDONARNOS","cartas":["¿Qué te costó más perdonarte a ti mismo/a en esta relación?","¿Hay algo que necesites soltar para dejar de castigarnos por el pasado?","¿Qué palabra mía te sanaría si te la dijera hoy?","¿Qué aprendimos de nuestra peor pelea que hoy nos protege?","¿Qué te gustaría que hagamos distinto la próxima vez que uno se equivoque?"]},{"nombre":"LO QUE APRENDÍ DE TI","cartas":["¿Qué crees que aprendí de ti sin darme cuenta?","¿Qué me enseñaste sobre la paciencia, el amor o la vida?","¿En qué te gustaría parecerte más a mí, y en qué a ti?","¿Qué costumbre mía adoptaste como tuya?","¿Qué te gustaría que yo aprendiera de tu forma de ver la vida?"]},{"nombre":"CÁPSULA DEL TIEMPO","cartas":["¿Qué le dejarías escrito a nosotros dentro de cinco años?","¿Qué momento de hoy querrías recordar cuando seamos viejos?","¿Qué te gustaría que jamás cambie entre los dos?","¿Qué versión de nosotros te ilusiona más ser?","¿Qué promesa quieres hacerme hoy, en serio?"]},{"nombre":"SOLTAR Y REÍR","cartas":["¿Cuál es la tontería más grande por la que discutimos y hoy da risa?","¿Qué defecto mío ya aceptaste que no va a cambiar (y me quieres igual)?","¿Qué harías si por un día fuéramos el uno el otro?","¿Qué me perdonas siempre porque \"así soy yo\"?","¿Qué costumbre nuestra sería un chiste para los demás y un tesoro para nosotros?"]},{"nombre":"NECESIDADES CLARAS","cartas":["Completa: \"Me sentiría más amado/a si tú…\"","Completa: \"Me haría feliz que dejaras de…\"","Completa: \"Necesito que me digas más seguido que…\"","Completa: \"Cuando peleamos, lo que en realidad necesito es…\"","Completa: \"Lo que más miedo me da perder de nosotros es…\""]},{"nombre":"CONVIVENCIA","cartas":["¿Qué de vivir conmigo te gustó más de lo que esperabas?","¿Qué costumbre mía en casa te saca de quicio y ya aprendiste a querer?","¿Qué te hace sentir \"en casa\" cuando estás conmigo, más allá del lugar?","¿Qué tarea de la casa te gustaría que hiciéramos juntos por gusto, no por deber?","¿Qué espacio de la casa sientes más \"nuestro\"?","¿Qué necesitas para que compartir el día a día no apague la chispa?","¿Qué acuerdo de convivencia nos falta conversar con calma?"]},{"nombre":"VIAJES Y AVENTURAS","cartas":["¿A qué lugar te mueres por ir conmigo antes de viejos?","¿Qué recuerdo de un viaje o salida nuestra atesoras más?","¿Prefieres perderte conmigo sin plan o tener todo organizado? ¿Por qué?","¿Qué aventura te da miedo pero harías si voy contigo?","¿Qué descubriste de mí viajando que no se veía en la rutina?"]},{"nombre":"FAMILIA QUE FORMAMOS","cartas":["Cuando piensas en formar (o cuidar) una familia conmigo, ¿qué te ilusiona?","¿Qué te da miedo de esa etapa, y qué necesitarías de mí?","¿Qué clase de hogar quieres que sintamos, tengamos hijos o no?","¿Qué valor te gustaría que se respire en nuestra casa?","¿Qué de tu niñez querrías darle a quien venga (o a nosotros mismos)?"]},{"nombre":"ADMIRACIÓN","cartas":["¿Qué es lo que más admiras de cómo trato a los demás?","¿En qué momento te sentiste orgulloso/a de ser mi pareja?","¿Qué talento mío crees que no aprovecho lo suficiente?","¿Qué haría yo que te haría admirarme aún más?","¿Qué cualidad mía te gustaría que nunca pierda?"]},{"nombre":"DESEO EMOCIONAL","cartas":["¿Qué te falta de mí emocionalmente que no te has atrevido a nombrar?","¿Cuándo te sientes más conectado/a a mí, sin que nos toquemos?","¿Qué conversación conmigo te deja lleno/a por dentro?","¿Qué te gustaría que hiciéramos más para sentirnos íntimos sin intimidad física?","¿Qué te hace sentir que somos \"uno\" y no solo dos que se acompañan?"]},{"nombre":"ELIGE","cartas":["¿Una noche de charla profunda o un día entero de risas? ¿Por qué?","¿Que te lea la mente o que te pregunte siempre? ¿Por qué?","¿Que te sorprenda o que planeemos todo juntos?","¿Palabras o gestos? ¿Cuál te llega más de mí?","¿Prefieres que te defienda o que te dé la razón cuando estás mal?","¿Rutina segura o aventura incierta, conmigo?"]},{"nombre":"RECONCILIACIÓN","cartas":["¿Cómo sabes que ya te perdoné de verdad?","¿Qué necesitas después de una pelea para volver a sentirte cerca?","¿Qué frase mía te desarma el enojo?","¿Prefieres resolver en el momento o darnos aire primero?","¿Qué te gustaría que yo entienda de cómo te enojas?"]},{"nombre":"EL FUTURO NUESTRO","cartas":["¿Cómo quieres que sea un domingo cualquiera dentro de veinte años?","¿Qué te gustaría que sigamos haciendo cuando ya nadie nos mire?","¿Qué sueño compartido te haría sentir que \"lo logramos\"?","¿Qué te gustaría que yo recuerde de ti si un día no estás?","¿Qué quieres construir conmigo que dure más que nosotros?"]},{"nombre":"AGRADECER Y CERRAR","cartas":["¿Con qué frase resumirías lo que sientes por mí esta noche?","¿Qué te llevas de esta conversación que no sabías al empezar?","¿Qué te gustaría decirme antes de dormir hoy?","¿Qué haría que mañana sea un mejor día para los dos?","Si esta noche fuera un regalo, ¿qué parte te quedas para siempre?"]},{"nombre":"COMPLETA LA FRASE","cartas":["\"Contigo aprendí que el amor es…\"","\"La primera vez que sentí que eras mi hogar fue…\"","\"Lo que más me cuesta decirte es…\"","\"Cuando te miro dormir pienso en…\"","\"Si el mundo se acabara mañana, contigo querría…\"","\"Mi lugar favorito del mundo es… porque ahí estás tú cuando…\"","\"Nunca te lo dije, pero cada vez que tú… me enamoro otra vez.\"","\"Lo que más agradezco de habernos elegido es…\""]},{"nombre":"TRES PALABRAS","cartas":["Descríbeme en tres palabras… y explícame una.","Describe nuestra relación en tres palabras.","¿Qué tres palabras querrías que yo use para describirte?","Tres cosas que nunca quieres que cambien de nosotros.","Tres momentos nuestros que salvarías de un incendio."]},{"nombre":"YO NUNCA","cartas":["Yo nunca te dije lo nervioso/a que estaba en… (cuéntalo).","Yo nunca te confesé que guardo… (dime qué).","Yo nunca imaginé que contigo llegaría a… (completa).","Yo nunca me sentí tan yo mismo/a como cuando… (dime cuándo).","Yo nunca te agradecí de verdad por… (hazlo ahora)."]},{"nombre":"CUMPLEAÑOS Y FECHAS","cartas":["¿Qué regalo mío (no material) te llegó más al corazón?","¿Cómo te gustaría que celebre lo importante para ti?","¿Qué fecha nuestra querrías volver un ritual cada año?","¿Qué te haría sentir realmente visto/a en tu día?","¿Qué tradición de pareja te gustaría empezar este año?"]},{"nombre":"MICRO-MOMENTOS","cartas":["¿Qué gesto mínimo mío te alegra un día gris?","¿Qué sonido, olor o sabor te recuerda a mí?","¿Qué parte de despertar a mi lado te gusta más?","¿Qué momento del día piensas en mí sin querer?","¿Qué canción sientes que cuenta algo de nosotros?"]},{"nombre":"VULNERABILIDAD PROFUNDA","cartas":["¿Qué parte de ti todavía te da miedo mostrarme del todo?","¿Cuándo te sentiste más frágil conmigo, y cómo lo viví yo?","¿Qué necesitas oír para creer que te voy a quedar?","¿Qué te enseñó el amor que te dolió, y qué haces distinto conmigo?","¿Qué herida tuya sana, aunque sea un poco, a mi lado?"]},{"nombre":"SI PUDIERAS","cartas":["Si pudieras congelar nuestra edad, ¿en qué momento de la vida nos dejarías?","Si pudieras regalarme un día perfecto, ¿cómo sería de principio a fin?","Si pudieras borrarme un miedo, ¿cuál me quitarías?","Si pudieras que yo sintiera algo tuyo por un minuto, ¿qué elegirías?","Si pudieras pedir un deseo solo para nosotros, ¿cuál sería?"]},{"nombre":"CÓMO NOS CUIDAMOS","cartas":["¿Cómo te das cuenta de que te estoy cuidando, aunque no lo diga?","¿Qué te gustaría que yo cuide más de ti?","¿Qué haces tú por mí que crees que no noto?","¿Qué acuerdo nos haría cuidarnos mejor en los días difíciles?","¿Qué necesitas de mí para sentir que siempre estás primero?"]},{"nombre":"LO QUE NO CAMBIARÍA","cartas":["¿Qué defecto mío no cambiarías por nada?","¿Qué de nuestra historia repetirías igual, con lo bueno y lo malo?","¿Qué costumbre nuestra te hace sentir afortunado/a?","¿Qué de mí te sigue sorprendiendo después de todo este tiempo?","¿Qué crees que le falta a este amor… y qué le sobra de bueno?"]},{"nombre":"PREGUNTAS QUE NADIE HACE","cartas":["¿Qué crees que piensa la gente de nosotros que no es verdad?","¿En qué momento me perdonaste antes de que pidiera perdón?","¿Qué parte de amarme te ha costado más aprender?","¿Qué es lo más valiente que has hecho por este amor sin contármelo?","¿Qué versión de mí amas en secreto que yo no valoro?","¿Qué te gustaría que supiera de cuánto me amas, y no logro dimensionar?"]}]},{"id":"sinfiltro","nombre":"Sin Filtro","emoji":"🔥","adulto":true,"bajada":"Solo para los dos. +18.","como":"Pueden saltar cualquier carta, sin explicar. Consentimiento en cada paso.","mazos":[{"nombre":"RETOS JUGUETONES","cartas":["bésame el cuello 10 segundos… y prohibido usar las manos.","quítame una prenda. Despacio. Tú eliges cuál.","susúrrame al oído lo que quieres que te haga ahora mismo.","guía mi mano y muéstrame por dónde quieres que empiece.","hazme un masaje de un minuto donde yo te diga… y no pares antes.","dame un beso de 20 segundos que NO sea en la boca.","siéntate en mi regazo y no me dejes decir ni una palabra.","dos minutos sin usar las manos. Improvisen.","elige una parte de mí y dime al oído qué le harías.","hazme reír… y luego hazme callar con un beso.","ponme una venda en los ojos por un minuto y sorpréndeme.","escríbeme en la piel, con el dedo, lo que quieres… y que yo adivine.","cuenta hasta diez besándome, cada uno en un lugar distinto.","dame una orden juguetona y hazme cumplirla ya.","sin tocarme, hazme querer que te toque. Tienes 30 segundos.","elige la canción y bailemos pegados… hasta que uno pierda la calma.","muérdeme suave donde nadie más te vería hacerlo.","guíame las manos y márcame el ritmo que te gusta.","dime \"para\" o \"sigue\" y yo obedezco por un minuto.","róbame la ropa que yo elija… con una sola mano.","hazme un mapa: toca tres lugares donde quieres más atención.","susúrrame el plan completo de esta noche, sin saltarte nada.","apaga la luz y encuéntrame solo con las manos.","cuéntame al oído un secreto tuyo… mientras me besas el cuello.","hazme perder en un pulso de miradas; el que parpadea, cumple un deseo.","ponme una regla para esta noche y hazla cumplir.","dame diez segundos de ventaja… y atrápame.","desabróchame algo usando solo una mano.","guíame en susurros por toda la casa hasta donde tú quieras.","hazme un baile de 30 segundos que me deje sin palabras.","elige \"más despacio\" o \"más cerca\" y yo obedezco.","bésame como si fuera la primera vez… y luego como si fuera la última.","escribe con el dedo en mi espalda tu deseo de esta noche.","roba tres besos en tres lugares antes de que cuente hasta cinco."],"tipos":["Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto","Reto"]},{"nombre":"COQUETEO ATREVIDO","cartas":["Si te dejo elegir, ¿qué me quitarías primero?","¿Dónde te mueres de ganas de que te bese y nunca me lo dijiste?","¿Prefieres que te lo pida… o que simplemente lo haga?","Del 1 al 10, ¿qué tan lejos quieres llegar esta noche?","¿Qué me vuelve irresistible sin que yo me dé cuenta?","¿Qué palabra tuya, dicha al oído, me desarma por completo?","¿Qué te enciende más rápido: mis manos, mi voz o mi mirada?","¿Qué te gusta que te haga que nunca me pides dos veces (porque no hace falta)?","¿Qué te imaginaste hacer conmigo hoy cuando no estábamos juntos?","¿Prefieres que te desnude con las manos o con la mirada primero?","¿Qué tan atrevido/a te atreverías a ser si te prometo que nada sale de aquí?","¿Qué te gusta más: provocar… o que te provoquen?","¿Dónde te gustaría que te bese ahora mismo, sin que lo piense dos veces?","¿Qué palabra mía al oído te acelera?","¿Cuál es tu forma favorita de que te robe un beso de sorpresa?","Si esta noche mando yo, ¿hasta dónde me dejas llegar?","¿Qué te gustaría que te haga apenas cruzamos la puerta al llegar a casa?","¿Prefieres las prisas de las ganas o la calma de todo el tiempo del mundo?","¿Qué mirada mía sabes que significa \"vámonos ya de aquí\"?","¿Qué te dan más ganas de hacerme cuando me ves recién salido/a de la ducha?","¿Cuál es tu manera favorita de que te seduzca con ropa puesta?","¿Qué te gusta que te susurre en medio de todo?","¿Qué tan atrevido/a te pones cuando nadie más puede vernos?","Si te doy una hora y ninguna regla, ¿por dónde empiezas?"]},{"nombre":"FUEGO — SUBE LA APUESTA","cartas":["¿Qué fantasía te da un poco de vergüenza confesar… pero te encantaría cumplir?","¿Qué es lo más atrevido que quieres hacer conmigo y aún no hicimos?","¿En qué lugar de la casa te gustaría que perdiéramos la cabeza?","¿Prefieres la anticipación lenta… o que te sorprenda sin aviso?","Termina la frase, sin pensar: \"Me encantaría que ahora mismo tú…\"","¿Qué te gustaría escuchar de mí justo antes de apagar la luz?","¿Qué fantasía compartiríamos si te prometo cero vergüenza?","¿Qué te gustaría probar que siempre postergamos \"para otro día\"?","¿Prefieres la urgencia de las ganas… o la tortura de esperar?","Completa sin pensar: \"Me encendería que ahora mismo me…\"","¿Qué recuerdo nuestro te sigue calentando cuando lo piensas solo/a?","¿Qué te gustaría escucharme decir que nunca me he atrevido?","¿Qué lugar (fuera del dormitorio) te tienta más?","¿Qué te da más morbo: que te mire, que te describa, o que te calle a besos?","¿Qué papel te gustaría que jugáramos alguna noche, solo por diversión?","¿Qué te excita más de mí cuando tomo el control?","¿Y qué te gusta más de cuando lo tomas tú?","¿Qué recuerdo nuestro elegirías para revivir exactamente igual?","¿Qué cosa nueva te da curiosidad y un poquito de nervios probar conmigo?","¿Prefieres que te lo describa con detalle… o que te calle y actúe?","¿Qué lugar o momento del día te parece el más prohibido y tentador?","Del \"sí, ya\", al \"hazme rogar\": ¿qué ritmo te gusta más esta noche?"]},{"nombre":"MINI-JUEGOS","cartas":["verdad o reto, versión ardiente. Elige… y aguanta las consecuencias.","el primero que se ríe cumple el próximo deseo del otro.","tienes 30 segundos para convencerme, con palabras, de subir la temperatura.","lancen una moneda: cara la elige él/ella, sello lo eliges tú.","strip a las preguntas — quien no quiera responder, se quita una prenda.","temperatura — cada ronda subimos un nivel; el que se raja, cumple un deseo.","3 deseos — cada uno pide tres cosas para esta noche; se negocian a besos.","el reloj — dos minutos para provocar; si aguanto, elijo yo lo que sigue.","dados imaginarios — uno dice \"qué\" y el otro dice \"dónde\".","la ruleta — cada uno anota tres deseos; se elige al azar y se cumple.","dos verdades y un deseo — adivina cuál es el deseo… y hazlo realidad.","cronómetro invertido — quien aguante más sin ceder, manda la noche.","cartas al azar — sacas una y decides: la cumples o subes la apuesta.","\"sí, y…\" — cada uno suma algo al plan de la noche sin poder decir que no (dentro de lo que ambos quieran).","el mudo — un minuto sin hablar; todo se dice con gestos.","premio y castigo — el que pierda la próxima ronda cumple un antojo del otro.","subasta de besos — cada beso \"cuesta\" un secreto o un deseo."],"tipos":["Juego","Juego","Juego","Juego","Juego","Juego","Juego","Juego","Juego","Juego","Juego","Juego","Juego","Juego","Juego","Juego","Juego"]},{"nombre":"A DISTANCIA / MENSAJES","cartas":["mándame ahora un mensaje que me haga contar las horas para verte.","¿Qué te gustaría recibir de mí a mitad de tu día para desconcentrarte (para bien)?","¿Prefieres que te escriba lo que pienso hacerte… o que te deje imaginándolo?","describe en un solo mensaje lo primero que harás cuando nos veamos."],"tipos":["Reto",null,null,"Reto"]}]},{"id":"mini","nombre":"Mini","emoji":"✨","adulto":false,"bajada":"Treinta cartas para una noche corta.","como":"Ideal si tienen poco tiempo o es la primera vez.","mazos":[{"nombre":"PARA EMPEZAR","cartas":["Sin pensarlo mucho: ¿qué me agradeces hoy?","¿Qué momento de esta semana te hubiera gustado vivir conmigo?","¿Qué hacíamos antes que dejamos de hacer y extrañas?","¿Cuál es nuestro chiste interno favorito y cómo nació?","¿Qué me sale terrible y aun así te encanta que lo intente?","¿Qué gesto mínimo mío te alegra un día gris?","¿Qué canción sientes que cuenta algo de nosotros?","¿Qué momento común del día extrañarías si dejara de pasar?"]},{"nombre":"CONECTAR","cartas":["¿En qué momento te has sentido más comprendido/a por mí?","Más allá de que te lo diga, ¿cómo sabes que te amo?","¿Qué gesto pequeño mío te llega más que un regalo grande?","¿Cuándo te sientes más amado/a: cuando te escucho, te abrazo, te ayudo o paso tiempo contigo?","¿Qué hago por costumbre que en realidad te llega profundo?","¿Qué te hace sentir en casa cuando estás conmigo, más allá del lugar?","¿Qué parte de nuestra rutina te gustaría convertir en un pequeño ritual?","¿Qué te reconforta de mí cuando el mundo afuera está difícil?"]},{"nombre":"PROFUNDIZAR","cartas":["¿Qué parte de ti sientes que solo yo conozco?","¿Hay algo que llevas tiempo queriendo decirme y no has hallado el momento?","¿Qué necesitas más de mí que te ha costado pedir?","¿Qué crees que nos mantiene juntos cuando todo se pone difícil?","¿Qué te gustaría que fuera distinto entre los dos, sin miedo a decirlo?","¿Qué sueño tuyo te gustaría que yo también hiciera mío?","¿Cómo nos imaginas dentro de diez años, en un día cualquiera?","¿Qué te gustaría que protejamos de la rutina antes de que se apague?"]},{"nombre":"UN RETO","cartas":["mírense a los ojos, en silencio, por un minuto.","dile tres cosas que agradeces de tenerlo/a hoy.","pídele algo que necesitas, sin justificarte.","dense el abrazo más largo de toda la semana.","dile qué momento de hoy fue mejor porque pensaste en él/ella.","terminen con un \"te elijo\" y digan por qué, hoy."],"tipos":["Reto","Reto","Reto","Reto","Reto","Reto"]}]}];
+var HASHES    = ["10d65002-c63160e6","14a8ac64-c90f2554","1f3faee-bb43a330","261312bd-d5bdf569","269b015c-d628468e","270b7ca5-d68011fd","27126582-d684e08e","271caf96-d68c7d72","27424864-d6aac3d4","289f9904-d79df92e","28a56bd4-d7a2ca0c","294654b5-d82002d3","2ab55b6e-d920f8d0","2ab62946-d921a70c","2ac86097-d930bb09","2cc1939d-da9de61b","2d6ee42b-db247bbf","2de75571-db65cc8d","2dec3a80-db8609a8","2e082d84-db9b634c","2e3b391-bbfe8467","2e3df154-dba9edb2","2e4ec6c8-dbd32daa","2f4721ea-dc78251a","2faaa118-dcc527b8","303a0d04-dd189ba0","30457320-dd3e3c16","30cb661-bc1eb863","31c8cdb9-de4f2b59","320ed2bd-de859173","321140e7-de887983","32983c08-def11a7a","32b0910b-df046015","32b16d25-dee7fb7d","32fd905e-df3fabb0","33ef194c-dfdfe15e","3427bc37-e00c1ca7","34977f73-e0634cdf","351c59d2-e0adfbe4","3694e354-e1d305b2","36ee145e-e219505a","3755a45f-e269bc57","399d1bb9-e3f7ed9b","3aef6cd4-e4ff1c50","3c0a6a41-e5bf0141","3c3f56ec-e5e90b70","3c3f9671-e60572b9","3c49fb31-e5f0f0b3","3d16f3a0-e68ff848","3e5b2918-e771198a","3f65eb7e-e840959c","3f8b9492-e85e0192","3f908f5-bcb9b67d","3fb4b6ec-e87d597c","3fc22077-e8887b4d","3fd17c3f-e8944dcf","40bbdc0c-e92e9332","410bd81d-e96d450b","41a95f6c-e9e7aeea","41d57f01-ea0a6d49","41e5f03-bcd7c209","4204daba-ea2ef09a","42bf1672-eac03fe0","42eb3622-eae2159c","42f518c7-eae96667","434637b8-eb0cd340","435b172c-eb1d3120","436a6614-eb452ec6","44116478-ebab3cec","44172e7-bd0e4ab7","443054bc-ebc3144c","443314aa-ebc5548e","4439ab88-ebcacaf2","449cfcb3-ec17ac45","45832e6e-eccb9cce","47b2f9bb-ee471d81","47fc9fc7-ee7fa1bf","480cd2bb-ee8c2343","490b4d4f-ef53472f","498617ed-efb2b433","49df6aab-eff83399","49f063de-f0055c74","4b15ced1-f0cddf1d","4b3444bb-f0e54a93","4c428c5c-f1b7bc60","4c924c46-f1d919d8","4d474d9f-f2660fb7","4e9dbfcc-f355688c","4ee6331d-f3a9fd59","502415b0-f484fb36","5051c388-f4a9026c","507e1e2e-f4cb13a8","514a74ae-f54e4610","523b18ac-f609ef8a","535b9e95-f6ea92e3","538cfe56-f6f4981e","548f46f1-f7bd1189","54f0fd58-f80987c0","5533fdfe-f83e5a2a","55b8a032-f8a4fed2","561728c2-f8eed3d2","56c20af3-f9573af3","57166e97-f9998c09","57d05a35-fa29a4a9","57fdf47f-fa3172f9","585f6426-fa98f89c","58f99bff-faf5559b","5940414f-fb2c4957","5a553977-fbe80a65","5a68cd26-fc139088","5b538c9d-fcae2a77","5b59c57e-fcb26566","5b6b18e7-fcc0c6a5","5b8ef385-fcdca959","5c3826ee-fd5fd98e","5c8bc92d-fda18f5f","5cf8ca07-fdf58d03","5f300897-ff773789","5f69e167-ffa4753d","6192fda7-152c7d1","6bacaca-bec321b2","74b275c-bf3389da","75c71d7-bf41dbf1","76ec7cf-bf4f394d","791c770-bf6b5a22","7cb8219-bf978cf7","7de272c-bfa70944","836e8d5-bfec105b","8becbe9-c0393fa3","9af8427-c0f4fb2d","9f5b386-c12b86a4","a46e6a1-c16a4b7d","b5623ce-c23d7f9e","b659fa5-c22d3f8b","c45d834-c2dc35d6","cbc9f14-c3393c94","d05ed43-c3717321","d4f5be0-c3aaaf30","dbb4ce5-c3e36e79","fb41365-c56c7029"];
 
 /* ═══════════════════════════════════════════════════════════════════
    RESPALDO EN CAPAS — por que existe cada capa
@@ -242,7 +255,7 @@ function corta(iso){
 /* ── estado en blanco ───────────────────────────────────────────── */
 function nuevo(){
   return {v:1, nombres:['',''], racha:0, mejor:0, ultimo:'', hechos:{},
-          hoy:null, premium:false, avisado:0};
+          hoy:null, premium:false, avisado:0, mazos:{}, mayor:false};
 }
 
 /* ── CAPA 1 · localStorage ──────────────────────────────────────── */
@@ -319,6 +332,18 @@ function fusionar(a, b){
   for(k in a.hechos) if(a.hechos.hasOwnProperty(k)) r.hechos[k] = a.hechos[k];
   /* el progreso del dia en curso: el que tenga mas escrito */
   r.hoy = pesoHoy(a.hoy) >= pesoHoy(b.hoy) ? a.hoy : b.hoy;
+  /* cartas vistas: la union de las dos copias, sin repetir */
+  r.mayor = !!(a.mayor || b.mayor);
+  r.mazos = {};
+  var fuentes = [a.mazos || {}, b.mazos || {}], fi, mk;
+  for(fi=0; fi<2; fi++){
+    for(mk in fuentes[fi]) if(fuentes[fi].hasOwnProperty(mk)){
+      if(!r.mazos[mk]) r.mazos[mk] = {vistas:[]};
+      var vs = (fuentes[fi][mk] && fuentes[fi][mk].vistas) || [];
+      for(var vi=0; vi<vs.length; vi++)
+        if(r.mazos[mk].vistas.indexOf(vs[vi]) === -1) r.mazos[mk].vistas.push(vs[vi]);
+    }
+  }
   return r;
 }
 function pesoHoy(h){
@@ -335,6 +360,8 @@ function sanear(e){
   n.hoy     = (e.hoy && typeof e.hoy === 'object') ? e.hoy : null;
   n.premium = !!e.premium;
   n.avisado = parseInt(e.avisado, 10) || 0;
+  n.mazos   = (e.mazos && typeof e.mazos === 'object') ? e.mazos : {};
+  n.mayor   = !!e.mayor;
   if(e.nombres && e.nombres.length === 2) n.nombres = [String(e.nombres[0]||''), String(e.nombres[1]||'')];
   return n;
 }
@@ -418,6 +445,52 @@ function ir(p, extra){
   window.scrollTo(0,0);
   pintar();
 }
+
+/* ═══ los mazos: cuántas cartas, qué se vio y en qué orden ══════
+   Sin membresía se abren las primeras GRATIS_POR_MAZO de cada mazo.
+   Dentro del mazo las cartas salen BARAJADAS y no se repiten hasta
+   que se acaben; lo visto queda guardado para retomar otro día.  */
+var GRATIS_POR_MAZO = 3;
+function cartasDeEdicion(e){
+  var n=0; for(var i=0;i<e.mazos.length;i++) n += e.mazos[i].cartas.length; return n;
+}
+var TOTAL_CARTAS = (function(){ var n=0; for(var i=0;i<EDICIONES.length;i++) n += cartasDeEdicion(EDICIONES[i]); return n; })();
+function topeDe(m){ return est.premium ? m.cartas.length : Math.min(GRATIS_POR_MAZO, m.cartas.length); }
+function bonitoMazo(n){
+  n = String(n||'').replace(/\s*\*\s*$/,'');
+  return n.charAt(0) + n.slice(1).toLowerCase();
+}
+function claveProg(ei, mi){ return ei + ':' + mi; }
+function leerProg(ei, mi){
+  if(!est.mazos) est.mazos = {};
+  var k = claveProg(ei,mi);
+  if(!est.mazos[k]) est.mazos[k] = {vistas:[]};
+  if(!est.mazos[k].vistas) est.mazos[k].vistas = [];
+  return est.mazos[k];
+}
+/* saca una carta que todavía no hayan visto, al azar dentro del tope */
+function sacarCarta(ei, mi){
+  var m = EDICIONES[ei].mazos[mi], tope = topeDe(m), prog = leerProg(ei,mi);
+  var libres = [];
+  for(var i=0;i<tope;i++) if(prog.vistas.indexOf(i) === -1) libres.push(i);
+  if(!libres.length) return null;
+  var elegida = libres[Math.floor(Math.random()*libres.length)];
+  prog.vistas.push(elegida);
+  guardar();
+  return elegida;
+}
+function reiniciarMazo(ei, mi){ leerProg(ei,mi).vistas = []; guardar(); }
+/* una carta al azar de toda la edición, sin repetir dentro de cada mazo */
+function cartaSorpresa(ei){
+  var e = EDICIONES[ei], orden = [];
+  for(var i=0;i<e.mazos.length;i++) orden.push(i);
+  for(var j=orden.length-1;j>0;j--){ var r=Math.floor(Math.random()*(j+1)); var t=orden[j]; orden[j]=orden[r]; orden[r]=t; }
+  for(var k=0;k<orden.length;k++){
+    var c = sacarCarta(ei, orden[k]);
+    if(c !== null) return {mazo:orden[k], carta:c};
+  }
+  return null;
+}
 function volverBtn(txt){
   return '<button class="volver" data-ir="inicio">&#8592; ' + esc(txt||'Inicio') + '</button>';
 }
@@ -480,14 +553,14 @@ function vInicio(){
   h += '</div>';
 
   h += '<div class="sep"></div>';
-  h += '<p class="tit-sec">Los mazos</p>';
-  for(var i=0;i<MAZOS.length;i++){
-    var m = MAZOS[i];
-    var bloq = (!est.premium && m.gratis < m.cartas.length);
-    h += '<button class="mazo" data-mazo="' + i + '">'
-      + '<span class="em">' + m.emoji + '</span><span>'
-      + '<b>' + esc(m.nombre) + (bloq ? '<span class="candado">' + m.gratis + ' gratis</span>' : '') + '</b>'
-      + '<small>' + esc(m.bajada) + '</small></span>'
+  h += '<p class="tit-sec">Las cartas</p>';
+  for(var i=0;i<EDICIONES.length;i++){
+    var e = EDICIONES[i], nc = cartasDeEdicion(e), nm = e.mazos.length;
+    h += '<button class="mazo" data-edi="' + i + '">'
+      + '<span class="em">' + e.emoji + '</span><span>'
+      + '<b>' + esc(e.nombre) + (e.adulto ? '<span class="mas18">+18</span>' : '')
+      + (est.premium ? '' : '<span class="candado">' + GRATIS_POR_MAZO + ' gratis</span>') + '</b>'
+      + '<small>' + esc(e.bajada) + ' · ' + nm + ' mazos, ' + nc + ' cartas</small></span>'
       + '<span class="fl">&#8250;</span></button>';
   }
 
@@ -614,36 +687,87 @@ function vRespaldo(){
 }
 
 /* ═══ PANTALLA · mazo ═══════════════════════════════════════════ */
-function vMazo(){
-  var m = MAZOS[vista.mazo];
-  var tope = est.premium ? m.cartas.length : Math.min(m.gratis, m.cartas.length);
+/* ═══ PANTALLA · la edición: sus mazos, como la caja del impreso ══ */
+function vEdicion(){
+  var e = EDICIONES[vista.edi];
   var out = volverBtn('Inicio');
-  /* primero, la explicacion del mazo: que es y como se juega */
+  out += '<p class="eti">' + e.emoji + ' ' + esc(e.nombre) + (e.adulto?' · +18':'') + '</p>';
+  out += '<h2 class="tit-gr">' + esc(e.bajada) + '</h2>';
+  out += '<p class="mini" style="margin-bottom:18px">' + esc(e.como) + '</p>';
+  if(e.adulto && !est.mayor){
+    out += '<div class="card hero"><p class="eti">Antes de entrar</p>'
+      + '<p class="preg" style="font-size:19px">Esta edición es solo para adultos, y solo entre ustedes dos.</p>'
+      + '<p class="mini" style="margin-top:14px">Pueden saltar cualquier carta sin explicar, bajar el nivel o parar '
+      + 'cuando quieran. Si a alguno no le provoca, no pasa nada.</p>'
+      + '<button class="bt" data-act="mayor">Somos mayores de 18 · entrar</button>'
+      + '<button class="bt chico suave" data-ir="inicio">Mejor no</button></div>';
+    return out;
+  }
+  out += '<button class="bt" data-act="sorpresa">🎲 Sorpréndenos con una carta</button>';
+  out += '<div class="sep"></div>';
+  out += '<p class="tit-sec">' + e.mazos.length + ' mazos</p>';
+  for(var i=0;i<e.mazos.length;i++){
+    var m = e.mazos[i], tope = topeDe(m), vistas = leerProg(vista.edi,i).vistas.length;
+    out += '<button class="mazo chico" data-mazo="' + i + '"><span>'
+      + '<b>' + esc(bonitoMazo(m.nombre)) + '</b>'
+      + '<small>' + tope + (est.premium?'':' gratis') + ' de ' + m.cartas.length + ' cartas'
+      + (vistas ? ' · vieron ' + Math.min(vistas,tope) : '') + '</small></span>'
+      + '<span class="fl">&#8250;</span></button>';
+  }
+  if(!est.premium){
+    out += '<div class="card hero" style="margin-top:16px"><p class="eti">La edición completa</p>'
+      + '<p class="preg" style="font-size:19px">' + cartasDeEdicion(e) + ' cartas en ' + e.mazos.length + ' mazos.</p>'
+      + '<p class="mini" style="margin-top:12px">Con tu código se abren las tres ediciones: '
+      + TOTAL_CARTAS + ' cartas en total. Un solo pago, tuyo para siempre.</p>'
+      + '<button class="bt" data-ir="codigo">Tengo mi código</button></div>';
+  }
+  return out;
+}
+
+/* ═══ PANTALLA · el mazo, carta por carta ═══════════════════════ */
+function vMazo(){
+  var e = EDICIONES[vista.edi], m = e.mazos[vista.mazo];
+  var tope = topeDe(m), prog = leerProg(vista.edi, vista.mazo);
+  var out = '<button class="volver" data-act="volver-edi">&#8592; ' + esc(e.nombre) + '</button>';
+
   if(vista.paso === 'intro'){
     out += '<div class="card hero">'
-      +  '<p class="eti">' + m.emoji + ' ' + esc(m.nombre) + '</p>'
-      +  '<p class="preg" style="font-size:20px">' + esc(m.bajada) + '</p>'
-      +  '<p class="mini" style="margin-top:14px">' + esc(m.como) + '</p>'
-      +  '<p class="mini gris" style="margin-top:10px">' + tope + ' carta' + (tope===1?'':'s')
-      +      (est.premium ? '' : ' gratis') + ' en este mazo.</p>'
-      +  '<button class="bt" data-act="mazo-empezar">Empezar ' + esc(m.nombre) + '</button>'
-      +  '<button class="bt chico suave" data-ir="inicio">Ahora no</button></div>';
+      +  '<p class="eti">' + e.emoji + ' ' + esc(e.nombre) + '</p>'
+      +  '<h2 class="tit-gr">' + esc(bonitoMazo(m.nombre)) + '</h2>'
+      +  '<p class="mini" style="margin-top:12px">' + tope + ' carta' + (tope===1?'':'s')
+      +      (est.premium ? '' : ' gratis') + ' en este mazo.'
+      +      (prog.vistas.length ? ' Ya vieron ' + Math.min(prog.vistas.length,tope) + '.' : '') + '</p>'
+      +  '<button class="bt" data-act="mazo-empezar">' + (prog.vistas.length?'Seguir':'Empezar') + '</button>'
+      +  (prog.vistas.length ? '<button class="bt chico suave" data-act="reiniciar">Empezar de nuevo</button>' : '')
+      +  '<button class="bt chico suave" data-act="volver-edi">Ahora no</button></div>';
     return out;
   }
-  out += '<p class="eti">' + m.emoji + ' ' + esc(m.nombre) + '</p>';
-  if(vista.idx >= tope){
-    out += '<div class="card hero"><p class="eti">Se acabó lo gratis</p>'
-      +  '<p class="preg">Quedan ' + (m.cartas.length - tope) + ' cartas de ' + esc(m.nombre) + '.</p>'
-      +  '<p class="mini" style="margin-top:14px">La pregunta del día es gratis siempre. '
-      +  'El mazo ' + esc(m.nombre) + ' completo entra con la membresía.</p>'
-      +  '<button class="bt" data-act="pagar">Desbloquear el mazo</button>'
-      +  '<button class="bt chico suave" data-ir="inicio">Ahora no</button></div>';
+
+  /* se acabaron las de este mazo */
+  if(vista.carta === null || vista.carta === undefined){
+    if(!est.premium && m.cartas.length > tope){
+      out += '<div class="card hero"><p class="eti">Se acabó lo gratis</p>'
+        +  '<p class="preg">Quedan ' + (m.cartas.length - tope) + ' cartas en ' + esc(bonitoMazo(m.nombre)) + '.</p>'
+        +  '<p class="mini" style="margin-top:14px">La pregunta del día es gratis siempre. '
+        +  'Las ' + TOTAL_CARTAS + ' cartas de las tres ediciones se abren con tu código.</p>'
+        +  '<button class="bt" data-ir="codigo">Tengo mi código</button>'
+        +  '<button class="bt chico suave" data-act="volver-edi">Ver otro mazo</button></div>';
+    } else {
+      out += '<div class="card hero"><p class="eti">Terminaron el mazo</p>'
+        +  '<p class="preg">Se leyeron las ' + tope + ' cartas de ' + esc(bonitoMazo(m.nombre)) + '.</p>'
+        +  '<button class="bt" data-act="reiniciar">Barajar y volver a empezar</button>'
+        +  '<button class="bt chico suave" data-act="volver-edi">Elegir otro mazo</button></div>';
+    }
     return out;
   }
-  out += '<div class="carta"><p>' + esc(m.cartas[vista.idx]) + '</p></div>';
-  out += '<div class="cont">Carta ' + (vista.idx+1) + ' de ' + tope + '</div>';
+
+  var tipo = (m.tipos && m.tipos[vista.carta]) ? m.tipos[vista.carta] : null;
+  out += '<p class="eti">' + esc(bonitoMazo(m.nombre)) + '</p>';
+  out += '<div class="carta">' + (tipo ? '<span class="tipo">' + esc(tipo) + '</span>' : '')
+      +  '<p>' + esc(m.cartas[vista.carta]) + '</p></div>';
+  out += '<div class="cont">' + Math.min(prog.vistas.length, tope) + ' de ' + tope + '</div>';
   out += '<button class="bt" data-act="otra">Otra carta</button>';
-  out += '<button class="bt chico suave" data-ir="inicio">Terminar</button>';
+  out += '<button class="bt chico suave" data-act="volver-edi">Terminar</button>';
   return out;
 }
 
@@ -675,11 +799,62 @@ function vAjustes(){
 }
 
 /* ═══ pintado ═══════════════════════════════════════════════════ */
+/* ═══ PANTALLA · el código de compra ════════════════════════════ */
+function vCodigo(){
+  var out = '<button class="volver" data-act="volver-edi">&#8592; Volver</button>';
+  if(est.premium){
+    out += '<div class="card hero"><p class="eti">Ya está abierto</p>'
+      + '<h2 class="tit-gr">Tienen las ' + TOTAL_CARTAS + ' cartas.</h2>'
+      + '<p class="mini" style="margin-top:12px">Las tres ediciones completas, en este celular, para siempre.</p>'
+      + '<button class="bt" data-ir="inicio">Volver al inicio</button></div>';
+    return out;
+  }
+  out += '<div class="card hero">'
+    + '<p class="eti">Tu código</p>'
+    + '<h2 class="tit-gr">' + TOTAL_CARTAS + ' cartas,<br>un solo pago.</h2>'
+    + '<p class="mini" style="margin-top:12px">Escribe el código que te llegó con tu compra. '
+    + 'Se escribe una sola vez y queda guardado en este celular.</p>'
+    + '<input type="text" id="cod" placeholder="SN-XXXX-XX" autocomplete="off" spellcheck="false" '
+    +   'autocapitalize="characters" style="text-align:center;letter-spacing:.14em;text-transform:uppercase;margin-top:14px">'
+    + '<div id="cod-msg" class="mini" style="min-height:20px;margin-top:8px"></div>'
+    + '<button class="bt" data-act="activar">Desbloquear</button></div>';
+  out += '<p class="mini gris" style="text-align:center">La pregunta del día y las primeras '
+    + GRATIS_POR_MAZO + ' cartas de cada mazo son gratis siempre.</p>';
+  return out;
+}
+function _norm(s){ return String(s||'').toUpperCase().replace(/[^A-Z0-9]/g,''); }
+function _hh(s){
+  s = _norm(s);
+  var h1 = 5381, h2 = 52711;
+  for(var i=0;i<s.length;i++){
+    var c = s.charCodeAt(i);
+    h1 = (Math.imul(h1,33) + c) >>> 0;
+    h2 = (Math.imul(h2,31) + c) >>> 0;
+  }
+  return h1.toString(16) + '-' + h2.toString(16);
+}
+function activarCodigo(){
+  var i = document.getElementById('cod'), m = document.getElementById('cod-msg');
+  var v = i ? i.value.replace(/^\s+|\s+$/g,'') : '';
+  if(!m) return;
+  if(!v){ m.style.color='#F0857D'; m.textContent='Escribe el código que te llegó con tu compra.'; return; }
+  if(HASHES.indexOf(_hh(v)) > -1){
+    est.premium = true; guardar();
+    m.style.color='#7ED8A2'; m.textContent='Listo. Se abrieron las ' + TOTAL_CARTAS + ' cartas.';
+    setTimeout(function(){ ir('inicio'); }, 850);
+    return;
+  }
+  m.style.color='#F0857D';
+  m.textContent='Ese código no es válido. Revísalo tal como te llegó, con los guiones.';
+}
+
 function pintar(){
   var app = document.getElementById('app'), h;
   if(vista.p === 'dia')            h = vDia();
   else if(vista.p === 'historial') h = vHistorial();
   else if(vista.p === 'respaldo')  h = vRespaldo();
+  else if(vista.p === 'edicion')   h = vEdicion();
+  else if(vista.p === 'codigo')    h = vCodigo();
   else if(vista.p === 'mazo')      h = vMazo();
   else if(vista.p === 'ajustes')   h = vAjustes();
   else if(vista.p === 'revela')    h = volverBtn('Inicio') + revelacion(est.hechos[hoyISO()], true);
@@ -706,14 +881,23 @@ document.addEventListener('click', function(ev){
   var mz = b.getAttribute('data-mazo');
   if(mz !== null && mz !== undefined && mz !== ''){ ir('mazo', {mazo:+mz, idx:0, paso:'intro'}); return; }
 
+  var ed = b.getAttribute('data-edi');
+  if(ed !== null && ed !== undefined && ed !== ''){ ir('edicion', {edi:+ed}); return; }
+
   var act = b.getAttribute('data-act');
   if(act === 'guardar-resp')  guardarResp(+b.getAttribute('data-quien'));
   else if(act === 'soy2')     { vista.paso = 'escribe2'; pintar(); }
   else if(act === 'nombres')  guardarNombres();
-  else if(act === 'mazo-empezar'){ vista.paso='jugando'; pintar(); }
-  else if(act === 'otra')     { vista.idx++; pintar(); }
-  else if(act === 'pagar')    { vista.msg = null; est.premium = true; guardar();
-                                alert('Membresía activada. Los dos mazos completos son suyos.'); ir('inicio'); }
+  else if(act === 'mayor')    { est.mayor = true; guardar(); pintar(); }
+  else if(act === 'volver-edi'){ ir('edicion', {edi:vista.edi}); }
+  else if(act === 'mazo-empezar'){ vista.paso='jugando'; vista.carta = sacarCarta(vista.edi, vista.mazo); pintar(); }
+  else if(act === 'otra')     { vista.carta = sacarCarta(vista.edi, vista.mazo); pintar(); }
+  else if(act === 'reiniciar'){ reiniciarMazo(vista.edi, vista.mazo); vista.paso='jugando';
+                                vista.carta = sacarCarta(vista.edi, vista.mazo); pintar(); }
+  else if(act === 'sorpresa') { var s = cartaSorpresa(vista.edi);
+                                if(s){ ir('mazo', {mazo:s.mazo, carta:s.carta, paso:'jugando'}); }
+                                else { vista.msg={ok:false,t:'Ya vieron todas las que tienen abiertas.'}; pintar(); } }
+  else if(act === 'activar')  activarCodigo();
   else if(act === 'copiar')   copiar();
   else if(act === 'wa')       whatsapp();
   else if(act === 'recuperar')recuperar();
@@ -777,7 +961,15 @@ function recuperar(){
 }
 
 /* ═══ arranque ══════════════════════════════════════════════════ */
-window.__sn = {estado:null, listo:false, vista:''};   /* solo para pruebas */
+/* ventana de pruebas: el robot que verifica el juego mira por aquí.
+   No expone nada que sirva para saltarse el código: HASHES no sale. */
+window.__sn = {estado:null, listo:false, vista:'',
+  total:TOTAL_CARTAS, gratis:GRATIS_POR_MAZO,
+  ediciones:function(){ return EDICIONES.map(function(e){
+    return {id:e.id, nombre:e.nombre, adulto:!!e.adulto, mazos:e.mazos.length, cartas:cartasDeEdicion(e)}; }); },
+  ir:function(p,x){ return ir(p,x); },
+  tope:function(ei,mi){ return topeDe(EDICIONES[ei].mazos[mi]); },
+  activar:function(){ return activarCodigo(); }};
 
 function arrancar(){
   var a = leerLS();
