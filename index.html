@@ -175,6 +175,8 @@ label.campo{display:block;font-size:12.5px;font-weight:700;letter-spacing:1.2px;
   text-transform:uppercase;color:#E84C8A;margin-bottom:14px}
 /* título grande, del estilo del original */
 .tit-gr{font-size:27px;font-weight:800;letter-spacing:-.7px;line-height:1.16;margin:0}
+.libre{font-size:10.5px;font-weight:800;letter-spacing:.8px;color:#7ED8A2;
+  background:rgba(126,216,162,.15);border-radius:99px;padding:3px 9px;margin-left:8px;vertical-align:middle}
 .mas18{font-size:10.5px;font-weight:800;letter-spacing:.8px;color:#F0857D;
   background:rgba(224,87,79,.16);border-radius:99px;padding:3px 8px;margin-left:8px;vertical-align:middle}
 .mazo.chico{padding:15px 17px}
@@ -451,11 +453,18 @@ function ir(p, extra){
    Dentro del mazo las cartas salen BARAJADAS y no se repiten hasta
    que se acaben; lo visto queda guardado para retomar otro día.  */
 var GRATIS_POR_MAZO = 3;
+/* La edicion MINI es la muestra: entra COMPLETA sin pagar (30 cartas en 4
+   mazos). Conexion y Sin Filtro se abren con el codigo de compra. */
+var EDI_GRATIS = 'mini';
+function ediLibre(e){ return !!e && e.id === EDI_GRATIS; }
 function cartasDeEdicion(e){
   var n=0; for(var i=0;i<e.mazos.length;i++) n += e.mazos[i].cartas.length; return n;
 }
 var TOTAL_CARTAS = (function(){ var n=0; for(var i=0;i<EDICIONES.length;i++) n += cartasDeEdicion(EDICIONES[i]); return n; })();
-function topeDe(m){ return est.premium ? m.cartas.length : Math.min(GRATIS_POR_MAZO, m.cartas.length); }
+function topeDe(m, e){
+  if(est.premium || ediLibre(e)) return m.cartas.length;
+  return Math.min(GRATIS_POR_MAZO, m.cartas.length);
+}
 function bonitoMazo(n){
   n = String(n||'').replace(/\s*\*\s*$/,'');
   return n.charAt(0) + n.slice(1).toLowerCase();
@@ -470,7 +479,7 @@ function leerProg(ei, mi){
 }
 /* saca una carta que todavía no hayan visto, al azar dentro del tope */
 function sacarCarta(ei, mi){
-  var m = EDICIONES[ei].mazos[mi], tope = topeDe(m), prog = leerProg(ei,mi);
+  var m = EDICIONES[ei].mazos[mi], tope = topeDe(m, EDICIONES[ei]), prog = leerProg(ei,mi);
   var libres = [];
   for(var i=0;i<tope;i++) if(prog.vistas.indexOf(i) === -1) libres.push(i);
   if(!libres.length) return null;
@@ -559,7 +568,9 @@ function vInicio(){
     h += '<button class="mazo" data-edi="' + i + '">'
       + '<span class="em">' + e.emoji + '</span><span>'
       + '<b>' + esc(e.nombre) + (e.adulto ? '<span class="mas18">+18</span>' : '')
-      + (est.premium ? '' : '<span class="candado">' + GRATIS_POR_MAZO + ' gratis</span>') + '</b>'
+      + (est.premium ? '' : (ediLibre(e)
+          ? '<span class="libre">gratis, entera</span>'
+          : '<span class="candado">' + GRATIS_POR_MAZO + ' gratis por mazo</span>')) + '</b>'
       + '<small>' + esc(e.bajada) + ' · ' + nm + ' mazos, ' + nc + ' cartas</small></span>'
       + '<span class="fl">&#8250;</span></button>';
   }
@@ -707,14 +718,14 @@ function vEdicion(){
   out += '<div class="sep"></div>';
   out += '<p class="tit-sec">' + e.mazos.length + ' mazos</p>';
   for(var i=0;i<e.mazos.length;i++){
-    var m = e.mazos[i], tope = topeDe(m), vistas = leerProg(vista.edi,i).vistas.length;
+    var m = e.mazos[i], tope = topeDe(m, e), vistas = leerProg(vista.edi,i).vistas.length;
     out += '<button class="mazo chico" data-mazo="' + i + '"><span>'
       + '<b>' + esc(bonitoMazo(m.nombre)) + '</b>'
       + '<small>' + tope + (est.premium?'':' gratis') + ' de ' + m.cartas.length + ' cartas'
       + (vistas ? ' · vieron ' + Math.min(vistas,tope) : '') + '</small></span>'
       + '<span class="fl">&#8250;</span></button>';
   }
-  if(!est.premium){
+  if(!est.premium && !ediLibre(e)){
     out += '<div class="card hero" style="margin-top:16px"><p class="eti">La edición completa</p>'
       + '<p class="preg" style="font-size:19px">' + cartasDeEdicion(e) + ' cartas en ' + e.mazos.length + ' mazos.</p>'
       + '<p class="mini" style="margin-top:12px">Con tu código se abren las tres ediciones: '
@@ -727,7 +738,7 @@ function vEdicion(){
 /* ═══ PANTALLA · el mazo, carta por carta ═══════════════════════ */
 function vMazo(){
   var e = EDICIONES[vista.edi], m = e.mazos[vista.mazo];
-  var tope = topeDe(m), prog = leerProg(vista.edi, vista.mazo);
+  var tope = topeDe(m, e), prog = leerProg(vista.edi, vista.mazo);
   var out = '<button class="volver" data-act="volver-edi">&#8592; ' + esc(e.nombre) + '</button>';
 
   if(vista.paso === 'intro'){
@@ -745,7 +756,7 @@ function vMazo(){
 
   /* se acabaron las de este mazo */
   if(vista.carta === null || vista.carta === undefined){
-    if(!est.premium && m.cartas.length > tope){
+    if(!est.premium && !ediLibre(e) && m.cartas.length > tope){
       out += '<div class="card hero"><p class="eti">Se acabó lo gratis</p>'
         +  '<p class="preg">Quedan ' + (m.cartas.length - tope) + ' cartas en ' + esc(bonitoMazo(m.nombre)) + '.</p>'
         +  '<p class="mini" style="margin-top:14px">La pregunta del día es gratis siempre. '
@@ -870,7 +881,7 @@ document.addEventListener('click', function(ev){
   var t = ev.target;
   while(t && t !== document.body && !t.getAttribute) t = t.parentNode;
   var b = t;
-  while(b && b !== document.body && !(b.getAttribute('data-ir') || b.getAttribute('data-act') || b.getAttribute('data-mazo'))){
+  while(b && b !== document.body && !(b.getAttribute('data-ir') || b.getAttribute('data-act') || b.getAttribute('data-mazo') || b.getAttribute('data-edi'))){
     b = b.parentNode;
   }
   if(!b || b === document.body) return;
@@ -968,7 +979,7 @@ window.__sn = {estado:null, listo:false, vista:'',
   ediciones:function(){ return EDICIONES.map(function(e){
     return {id:e.id, nombre:e.nombre, adulto:!!e.adulto, mazos:e.mazos.length, cartas:cartasDeEdicion(e)}; }); },
   ir:function(p,x){ return ir(p,x); },
-  tope:function(ei,mi){ return topeDe(EDICIONES[ei].mazos[mi]); },
+  tope:function(ei,mi){ return topeDe(EDICIONES[ei].mazos[mi], EDICIONES[ei]); },
   activar:function(){ return activarCodigo(); }};
 
 function arrancar(){
